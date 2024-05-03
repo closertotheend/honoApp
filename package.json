@@ -1,21 +1,27 @@
 {
   "scripts": {
-    "dev": "tsx watch src/index.tsx",
-    "start": "tsc && node --loader ts-node/esm --experimental-specifier-resolution=node  dist/index.js"
+    "dev": "NODE_ENV=development tsx --watch src/index.tsx",
+    "dev-strict": "NODE_ENV=development nodemon -e ts,tsx",
+    "start": "tsc && node --loader ts-node/esm --experimental-specifier-resolution=node dist/src/index.js",
+    "db:create-migration": "tsx ./node_modules/.bin/knex migrate:make -x ts",
+    "db:migrate": "NODE_ENV=development tsx ./node_modules/.bin/knex migrate:latest",
+    "db:create-seed": "tsx ./node_modules/.bin/knex seed:make -x ts init",
+    "db:seed": "NODE_ENV=development tsx ./node_modules/.bin/knex seed:run"
   },
   "dependencies": {
     "@hono/node-server": "^1.10.0",
+    "@types/node": "^20.11.17",
     "hono": "^4.2.5",
     "knex": "^3.1.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.1.0",
     "objection": "^3.1.4",
+    "pg": "^8.11.5",
     "sqlite3": "^5.1.7",
     "ts-node": "^10.9.2",
     "tsc": "^2.0.4",
+    "tsx": "^4.7.1",
     "typescript": "^5.4.5"
-  },
-  "devDependencies": {
-    "@types/node": "^20.11.17",
-    "tsx": "^4.7.1"
   },
   "type": "module"
 }
